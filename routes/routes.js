@@ -13,12 +13,62 @@ router.get('/', function(req, res){
 });
 
 router.route('/bears')
+	.get(function(req, res){
+		Bear.find(function(err, bears){
+			if (err) res.send(err);
+			
+			res.json(bears);
+		});
+	})
+	
+	.post(function(req, res){
+		var bear = new Bear();
+		bear.name = req.body.name;
+		bear.save(function(err){
+			if(err) res.send(err);
+			
+			res.json({message: 'create bear successful'});
+		});
+	});
+	
+router.route('/bears/:bear_id')
+	.get(function(req, res){
+		Bear.findById(req.params.bear_id,function(err, bear){
+			if (err) res.send(err);
+			
+			res.json(bear);
+		});
+	})
+	
+	.put(function(req,res){
+		Bear.findById(req.params.bear_id, function(err, bear){
+			if (err) res.send(err);
+			
+			bear.name = req.body.name;
+			bear.save(function(err){
+				if (err) res.send(err);
+				
+				res.json({message:'update bear successful'});
+			});
+		});
+	})
+	
+	.delete(function(req, res){
+		Bear.remove({_id:req.params.bear_id}, function(err){
+			if (err) res.send(err);
+			
+			res.json({message:'delete '});
+		});
+	});
+
+	/*
+router.route('/bears')
 
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
         
         var bear = new Bear();      // create a new instance of the Bear model
-        bear.name = 'tui hien roi day';//req.body.name;  // set the bears name (comes from the request)
+        bear.name = req.body.name;  // set the bears name (comes from the request)
 		
         // save the bear and check for errors
         bear.save(function(err) {
@@ -44,7 +94,6 @@ router.route('/bears/:bear_id')
 
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {
-		console.log("===============param:"+req.params.bear_id);
         Bear.findById(req.params.bear_id, function(err, bear) {
             if (err)
                 res.send(err);
@@ -85,6 +134,7 @@ router.route('/bears/:bear_id')
             res.json({ message: 'Successfully deleted' });
         });
     });
+	*/
 
 
 module.exports = router;
