@@ -5,10 +5,10 @@ var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
 //mongodb://<dbuser>:<dbpassword>@ds015953.mlab.com:15953/mongo-example-test
-mongoose.connect('mongodb://cuongmongolab105:cuongmongolab675214@ds015953.mlab.com:15953/mongo-example-test'); // connect to our database
+mongoose.connect('mongodb://cuongpt105:123456@ds015953.mlab.com:15953/mongo-example-test'); // connect to our database
 
 mongoose.connection.on('connected', function () {  
-  console.log('Mongoose default connection open to ' + dbURI);
+  console.log('Mongoose default connection open to ');
 }); 
 
 // If the connection throws an error
