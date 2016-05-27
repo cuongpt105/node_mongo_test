@@ -44,6 +44,7 @@ router.route('/bears/:bear_id')
 
     // get the bear with that id (accessed at GET http://localhost:8080/api/bears/:bear_id)
     .get(function(req, res) {
+		console.log("===============param:"+req.params.bear_id);
         Bear.findById(req.params.bear_id, function(err, bear) {
             if (err)
                 res.send(err);
